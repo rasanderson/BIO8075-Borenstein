@@ -13,31 +13,36 @@ ui <- fluidPage(
     plotOutput("metaPlot"),
     
     fluidRow(
-        column(3,
+        column(4,
+               #h3("Trial name"),
+               h4("PROVE IT")
+        ),
+        
+        column(2,
                sliderInput("nt_1",
-                           "nt for PROVE IT",
+                           label = NULL, #"nt for PROVE IT",
                            min = 1000,
                            max = 5000,
                            value = 2099)
                ),
         
-        column(3, 
+        column(2, 
                sliderInput("nc_1",
-                           "nc for PROVE IT",
+                           label = NULL, #"nc for PROVE IT",
                            min = 1000,
                            max = 5000,
                            value = 2063)
                ),
-        column(3,
+        column(2,
                sliderInput("ep1t_1",
-                           "ep1t for PROVEIT",
+                           label = NULL, #"ep1t for PROVEIT",
                            min = 50,
                            max = 250,
                            value = 147)
                ),
-        column(3,
+        column(2,
                sliderInput("ep1c_1",
-                           "ep1c for PROVEIT",
+                           label = NULL, #"ep1c for PROVEIT",
                            min = 50,
                            max = 250,
                            value = 172)
