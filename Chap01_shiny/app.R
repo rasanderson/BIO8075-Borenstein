@@ -1,57 +1,48 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+# Interactive based on Borenstein Chapter 1
 
 library(shiny)
 library(metafor)
 dat <- dat.cannon2006[,1:6]
 
 
-# Define UI for application that draws a histogram
+# Define UI for application that uses Borenstein Chapter 1
 ui <- fluidPage(
 
     # Application title
     titlePanel("How a meta-analysis works"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-#{
-            tags$div(sliderInput("ntPROVEIT",
-                        "nt for PROVE IT",
-                        min = 1000,
-                        max = 5000,
-                        value = 2099), style = "display:inline-block"),
-            tags$div(sliderInput("ncPROVEIT",
-                        "nc for PROVE IT",
-                        min = 1000,
-                        max = 5000,
-                        value = 2063), style = "display:inline-block"),
-#}
-            actionButton("reset", "Reset values")
+    plotOutput("metaPlot"),
+    
+    fluidRow(
+        column(6,
+               sliderInput("ntPROVEIT",
+                           "nt for PROVE IT",
+                           min = 1000,
+                           max = 5000,
+                           value = 2099)
         ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("metaPlot")
-        )
-    )
+        
+        column(6, 
+               sliderInput("ncPROVEIT",
+                           "nc for PROVE IT",
+                           min = 1000,
+                           max = 5000,
+                           value = 2063), style = "display:inline-block")
+    ),
+    
+    actionButton("reset", "Reset values")
 )
 
-# Define server logic required to draw a histogram
+
+# Define server logic 
 server <- function(input, output, session) {
     observeEvent(input$reset, {
+        # Reset values back to original
         updateSliderInput(session, "ntPROVEIT", value = 2099)
         updateSliderInput(session, "ncPROVEIT", value = 2063)
     })
 
     output$metaPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
+        # Modify inputs as needed
         dat[1, "nt"] <- input$ntPROVEIT
         dat[1, "nc"] <- input$ncPROVEIT
 
